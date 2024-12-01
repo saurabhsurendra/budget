@@ -2,4 +2,4 @@
 
 import streamlit as st
 
-st.write("Still Works")
+st.write(st.secrets["mongo_secret"]["url"])
