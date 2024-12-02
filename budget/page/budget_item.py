@@ -22,6 +22,11 @@ def align_columns(dataframe):
     return styled_df
 
 
+@st.dialog("Add New Item")
+def show_add_popup():
+    st.write("here")
+
+
 def run_page():
     db = get_connection()
     budget_collection = db['budget_item']
@@ -46,5 +51,8 @@ def run_page():
     st.write(f"Grand total - {format_indian_number(grand_total)}")
     df = pd.DataFrame(formatted_summary)
     st.dataframe(df, use_container_width=True, hide_index=True)
+    
+    if st.button("Add New Item"):
+        show_add_popup()
 
     
