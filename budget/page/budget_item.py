@@ -24,7 +24,22 @@ def align_columns(dataframe):
 
 @st.dialog("Add New Item")
 def show_add_popup():
-    st.write("here")
+    db = get_connection()
+    metadata = db["metadata"]
+    lookups = list(metadata.find())
+    
+    categories = [lookup["lookup_values"] for lookup in lookups if lookup["lookup_type"] == "categories"][0]
+    category_names = [category["lookup_value"] for category in categories]
+    category = st.selectbox("Category", category_names)
+        
+    sub_categories = [categ["children"] for categ in categories if categ["lookup_value"] == category][0]
+    sub_category = st.selectbox("Sub-category", sub_categories, index=None)
+    
+    item = st.text_input("Item")
+    amount = st.number_input("Amount")
+    
+    notes = st.text_area("Notes")
+
 
 
 def run_page():
